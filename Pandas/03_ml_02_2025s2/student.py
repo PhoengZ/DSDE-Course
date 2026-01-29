@@ -146,4 +146,3 @@ class BankLogistic:
         y_pred = model.predict(self.X_test)
         report = classification_report(self.y_test, y_pred, output_dict=True)
         return round(report['macro avg']['f1-score'],2)
-
