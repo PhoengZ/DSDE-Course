@@ -30,14 +30,14 @@ data = load_data()
 st.sidebar.header('Filters')
 
 # Price range filter
-max_price = 500
-min_price = 30000
+max_price = 40000
+min_price = 128
 price_range = st.sidebar.slider(
     'Price Range (THB)',
     min_value=min_price,
     max_value=max_price,
-    value=(min_price, max_price),
-    step=500
+    value=(min_price, 1000),
+    step=1
 )
 
 
