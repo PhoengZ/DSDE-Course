@@ -164,7 +164,3 @@ class BankLogistic:
         predict = pipe.predict(self.X_test)
         report = classification_report(self.y_test, predict, output_dict=True)
         return round(report['macro avg']['f1-score'],2)
-        
-
-
-   

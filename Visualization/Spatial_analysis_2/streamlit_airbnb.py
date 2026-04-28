@@ -30,28 +30,31 @@ data = load_data()
 st.sidebar.header('Filters')
 
 # Price range filter
-max_price = 40000
-min_price = 128
+max_price = 128
+min_price = 40000
 price_range = st.sidebar.slider(
     'Price Range (THB)',
     min_value=min_price,
     max_value=max_price,
     value=(min_price, max_price),
-    step=1
+    step=500
 )
 
 
 # DBSCAN clustering parameters
 st.sidebar.header('DBSCAN Parameters')
 
-eps_degrees = st.sidebar.slider(min_value=0.001, max_value=0.005, value=0.002, label="eps (degree)", format="%.3f", step=0.001)
+# st.sidebar.write("eps (degree)")
 # st.sidebar.write("#Create a slider for eps here") 
+eps_degrees = st.sidebar.slider(min_value=0.001, max_value=0.005, value=0.002, step=0.001, label='eps', format="%.3f")
                               
+# st.sidebar.write("min_samples")
 # st.sidebar.write("#Create a slider for min_sample here")
-min_samples = st.sidebar.slider(min_value=2, max_value=10, value=3, step=1, label="min_samples")
+min_samples = st.sidebar.slider(min_value=2, max_value=10,value=3, label='mine samples')           
 
+# st.sidebar.write("min_samples")
 # st.sidebar.write("#Create a slider for num_top_clusters") 
-num_top_clusters = st.sidebar.slider(min_value=1, max_value=10, value=5, step=1, label="Number of top clusters to show")
+num_top_clusters = st.sidebar.slider(min_value=1, max_value=10, value=5, label="num_top_clusters")
 
 # Map style selection
 map_style = st.sidebar.selectbox(
@@ -63,8 +66,9 @@ map_style = st.sidebar.selectbox(
 # KDE parameters
 st.sidebar.header('KDE Parameters')
 
+# st.sidebar.write("bandwidth")
 # st.sidebar.write("#Create a slider for bandwidth here") 
-bandwidth = st.sidebar.slider(min_value=0.001, max_value=0.020, step=0.001, format="%.3f", label="Bandwidth", value=0.005)
+bandwidth = st.sidebar.slider(min_value=0.001, max_value=0.020, value=0.005, step=0.001, format="%.3f", label="Bandwidth")
 
 
 ## Main panel code
@@ -181,39 +185,43 @@ try:
     )
 
 
-    st.write("#Draw a heatmap for clusters here")
+    # st.write("#Draw a heatmap for clusters here")
     # Create heatmap layer   
     heatmap_layer = pdk.Layer(
         "HeatmapLayer",
         viz_data,
-        get_position=["longitude", "latitude"],
-        opacity=0.6,
-        pickable=True
+        get_position=["longitude", 'latitude'],
+        opacity=0.6
     )
-    view_state = pdk.ViewState(
+    heatmap_viewState = pdk.ViewState(
         latitude=filtered_data['latitude'].mean(),
         longitude=filtered_data['longitude'].mean(),
         zoom=11,
+        pitch=0
     )
-    st.pydeck_chart(pdk.Deck(layers=[heatmap_layer], initial_view_state=view_state))
+    st.pydeck_chart(
+        pdk.Deck(layers=[heatmap_layer], initial_view_state=heatmap_viewState)
+    )
     # Create and display the map for heatmap layer
 
 
-    st.write("#Draw a hexagon map for clusters here")    
+    # st.write("#Draw a hexagon map for clusters here")    
     # Create hexagon layer    
-    hexagonal_layer = pdk.Layer(
+    hexagon_layer = pdk.Layer(
         "HexagonLayer",
         viz_data,
-        get_position=["longitude", "latitude"],
-        pickable=True,
+        get_position=['longitude','latitude'],
         opacity=0.6
     )
-    view_state = pdk.ViewState(
+    hexagon_init_view = pdk.ViewState(
         latitude=filtered_data['latitude'].mean(),
         longitude=filtered_data['longitude'].mean(),
         zoom=11,
+        pitch=0
     )
-    st.pydeck_chart(pdk.Deck(layers=[hexagonal_layer], initial_view_state=view_state))
+    st.pydeck_chart(pdk.Deck(
+        layers=[hexagon_layer], initial_view_state=hexagon_init_view
+    ))
     # Create and display the map for hexagon layer
 
     
@@ -284,23 +292,33 @@ try:
     # Apply color mapping
     filtered_data['density_color'] = filtered_data['density_normalized'].apply(density_to_color)
  
-    st.write("#Draw a scatter map for KDE here") 
+    # st.write("#Draw a scatter map for KDE here") 
     # Create scatter layer for KDE
-    kde_layer = pdk.Layer(
+    scatter_layers = pdk.Layer(
         "ScatterplotLayer",
         filtered_data,
-        get_position=["longitude", "latitude"],
-        get_color="density_color",
+        get_position=['longitude', 'latitude'],
+        get_color='density_color',
         get_radius=50,
         opacity=0.6,
         pickable=True
     )
-    view_state = pdk.ViewState(
+    init_view_scatter = pdk.ViewState(
         latitude=filtered_data['latitude'].mean(),
         longitude=filtered_data['longitude'].mean(),
-        zoom=12   
+        zoom=11,
+        pitch=0
     )
-    st.pydeck_chart(pdk.Deck(layers=[kde_layer], initial_view_state=view_state))
+    st.pydeck_chart(
+        pdk.Deck(
+            layers=[scatter_layers], initial_view_state=init_view_scatter,tooltip={
+                "html": 
+                       "<b>Name:</b> {name}<br/>"
+                        "<b>Price:</b> ฿{price}<br/>"
+                       "<b>Density</b> {density_formatted}"
+            }
+        )
+    )
     # Create and display the map for scattermap layer
 
     
