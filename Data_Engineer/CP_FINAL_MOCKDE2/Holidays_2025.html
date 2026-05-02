@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en" xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<head>
+    <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '_3SDpRuY5qwuq', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NTLJCTY7H2"></script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NTLJCTY7H2');
+</script>
+
+
+
+<link rel="preconnect" href="https://a.pub.network/" crossorigin />
+<link rel="preconnect" href="https://b.pub.network/" crossorigin />
+<link rel="preconnect" href="https://c.pub.network/" crossorigin />
+<link rel="preconnect" href="https://d.pub.network/" crossorigin />
+<link rel="preconnect" href="https://c.amazon-adsystem.com" crossorigin />
+<link rel="preconnect" href="https://s.amazon-adsystem.com" crossorigin />
+<link rel="preconnect" href="https://btloader.com/" crossorigin />
+<link rel="preconnect" href="https://api.btloader.com/" crossorigin />
+<link rel="preconnect" href="https://confiant-integrations.global.ssl.fastly.net" crossorigin />
+<link rel="stylesheet" href="https://a.pub.network/officeholidays-com/cls.css">
+
+<script data-cfasync="false" type="text/javascript">
+  var freestar = freestar || {};
+  freestar.queue = freestar.queue || [];
+  freestar.config = freestar.config || {};
+  freestar.config.enabled_slots = [];
+  freestar.initCallback = function () { (freestar.config.enabled_slots.length === 0) ? freestar.initCallbackCalled = false : freestar.newAdSlots(freestar.config.enabled_slots) }
+</script>
+<script src="https://a.pub.network/officeholidays-com/pubfig.min.js" data-cfasync="false" async></script>
+
+<!-- Basic Page Needs
+================================================== -->
+<meta charset="utf-8">
+<title itemprop="name">National Holidays in Thailand in 2025 | Office Holidays</title>
+<meta name="robots" content="max-image-preview:large">
+<meta name="description" content="Comprehensive list of National Public Holidays that are celebrated in Thailand during 2025 with dates and information on the origin and meaning of holidays." />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="National Holidays in Thailand in 2025 | Office Holidays" />
+<meta property="og:description" content="Comprehensive list of National Public Holidays that are celebrated in Thailand during 2025 with dates and information on the origin and meaning of holidays." />
+<meta property="og:site_name" content="Office Holidays" />
+<meta property="article:publisher" content="https://facebook.com/officeholidays" />
+<meta name="twitter:card" content="article" />
+<meta name="twitter:description" content="Comprehensive list of National Public Holidays that are celebrated in Thailand during 2025 with dates and information on the origin and meaning of holidays." />
+<meta name="twitter:title" content="National Holidays in Thailand in 2025 | Office Holidays" />
+<meta name="twitter:site" content="@officeholidays" />
+<meta name="twitter:creator" content="@officeholidays" />
+<!-- Mobile Specific Metas
+================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+
+<script type='application/ld+json'>
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://www.officeholidays.com/",
+    "name": "Office Holidays",
+    "alternateName": "Office Holidays",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.officeholidays.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+<meta name="Keywords" content="Thailand, Thai holidays, offices, national holidays, public holidays, observances, festivals, diversity, global awareness, list of international holidays, international holidays, daily holidays" />
+<link rel="canonical" href="https://www.officeholidays.com/countries/thailand/2025">
+<!--<link rel="amphtml" href="https://www.officeholidays.com/amp/countries/thailand/2025">-->
+<link rel="image_src" href=https://static.officeholidays.com/images/1280x853c/thailand-02.jpg />
+<meta property="og:url" content="https://www.officeholidays.com/countries/thailand/2025" />
+<meta property="og:image" content=https://static.officeholidays.com/images/1280x853c/thailand-02.jpg/>
+<meta property="twitter:image" content=https://static.officeholidays.com/images/1280x853c/thailand-02.jpg/>
+<script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Article",
+		"mainEntityOfPage": "https://www.officeholidays.com/countries/thailand/2025",
+        "headline": "National Holidays in Thailand in 2025 | Office Holidays",
+		"description": "Comprehensive list of National Public Holidays that are celebrated in Thailand during 2025 with dates and information on the origin and meaning of holidays.",
+        "datePublished": "2020-01-01T12:02:41Z",
+        "dateModified": "2020-01-01T12:02:41Z",
+		 "author": {
+      "@type": "Person",
+      "name": "Toby Shaw"
+    },
+		 "publisher": {
+      "@type": "Organization",
+      "name": "Office Holidays Ltd.",
+      "sameAs":["https://facebook.com/officeholidays","https://uk.pinterest.com/officeholidays/","https://twitter.com/officeholidays"],
+	        "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.officeholidays.com/images/logos/amp-officeholidays-logo-wide.png","width":"600","height":"60"
+      }
+    },
+        "image": [
+          "https://static.officeholidays.com/images/1280x853c/thailand-02.jpg"
+        ]
+      }
+    </script>
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href="https://www.officeholidays.com/css/combined-min.css">
+<link rel="stylesheet" href="https://www.officeholidays.com/css/style-min.css">
+<style type="text/css">
+    @font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:900;font-display:auto;src:url(/webfonts/fa-solid-900.eot);src:url(/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(/webfonts/fa-solid-900.woff2) format("woff2"),url(/webfonts/fa-solid-900.woff) format("woff"),url(/webfonts/fa-solid-900.ttf) format("truetype"),url(/webfonts/fa-solid-900.svg#fontawesome) format("svg")}.fa{font-family:"Font Awesome 5 Free";font-weight:900}
+    .fa,.fab,.fal,.far,.fas{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}.fa-angle-left:before{content:"\f104"}.fa-angle-right:before{content:"\f105"}.fa-search:before{content:"\f002";font-weight: 900}.fa-bars:before{content:"\f0c9"}.fa-arrow-left:before{content:"\f060"}.fa-arrow-right:before{content:"\f061"}.fa-sign-in-alt:before{content:"\f2f6"}.fa-info-circle:before{content:"\f05a"}.fa-calendar-alt:before{content:"\f073"}.fa-utensils:before{content:"\f2e7"}
+    button,.top-bar-dropdown ul li a:hover,.skill-bar-value,.counter-box.colored,.pagination .current,.pagination ul li a:hover,.pagination-next-prev ul li a:hover,.tabs-nav li.active a,.dropcap.full,.highlight.color,.ui-accordion .ui-accordion-header-active:hover,.ui-accordion .ui-accordion-header-active,.trigger.active a,.trigger.active a:hover,.share-buttons ul li:first-child a,a.caption-btn:hover,.mfp-close:hover,.mfp-arrow:hover,.img-caption:hover figcaption,#price-range .ui-state-default,.selectricItems li:hover,.product-categories .img-caption:hover figcaption,.rsDefault .rsThumbsArrow:hover,.customSelect .selectList dd.hovered,.qtyplus:hover,.qtyminus:hover,a.calculate-shipping:hover,.og-close:hover,.tags a:hover{background:#1077a2}.top-search button:hover,.cart-buttons a,.cart-buttons a.checkout,.menu>li:hover .current,.menu>li.sfHover .current,.menu>li:hover,.menu>li.sfHover,li.dropdown ul li a:hover,#jPanelMenu-menu li a:hover,input[type=button],input[type=submit],a.button.color,a.button.dark:hover,a.button.gray:hover,.icon-box:hover span,.tp-leftarrow:hover,.tp-rightarrow:hover,.sb-navigation-left:hover,.sb-navigation-right:hover,.product-discount,.newsletter-btn,#categories li a:hover,#categories li a.active,.flexslider .flex-prev:hover,.flexslider .flex-next:hover,.rsDefault .rsArrowIcn:hover,.hover-icon,#backtotop a:hover,#filters a:hover,#filters a.selected,table.country-table th{background-color:#1077a2!important}a,.happy-clients-author,#categories li li a.active span,#categories li li a.active,#additional-menu ul li a:hover,#additional-menu ul li a:hover span,.mega a:hover,.mega ul li p a,#not-found i,.dropcap,.list-1.color li:before,.list-2.color li:before,.list-3.color li:before,.list-4.color li:before,.comment-by span.reply a:hover,.comment-by span.reply a:hover i,#categories li ul li a:hover span,#categories li ul li a:hover,table .cart-title a:hover,.st-val a:hover,.meta a:hover{color:#1077a2}.menu>li.dropdown li.sfHover{background-color:#1077a2}.dropdown ul{background-color:#606060}#jPanelMenu-menu a.current{background:#1077a2!important}.current-page{background-color:#1077a2!important}blockquote{border-left:4px solid #1077a2}.categories li a:hover{color:#1077a2!important}
+</style>
+<link rel="stylesheet" href="https://www.officeholidays.com/css/print.css" type="text/css" media="print" />
+
+<script
+   src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="/js/jquery.lazyload-any.js"></script>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=65d84b5c1eabb90019a5497c&product=sop' async='async'></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link rel="stylesheet" type="text/css" href="https://www.officeholidays.com/css/all-flags.css"/>
+<link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet">
+<style type="text/css">
+   .fa-star-and-cresent:before{content:"\f699"}.fa-plane:before{content:"\f072"}.fa-school:before{content:"\f19d"}.fa-briefcase:before{content:"\f0b1"}.fa-virus:before{content:"\f974"}
+</style>
+
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+</head>
+
+<body oncopy="return false;" class="boxed">
+<div id="wrapper" >
+
+<!-- Top Bar
+================================================== -->
+
+<!-- Top Bar Menu -->
+<div id="top-bar">
+	<div class="container hide-mobile">
+		<div class="eight columns">
+			<ul class="top-bar-menu">
+													                	<li><i class="fa fa-sign-in-alt"></i> <a href="https://www.officeholidays.com/login">Login</a></li>
+	                	                        			</ul>
+		</div>
+
+		<!-- Social Icons -->
+		<div class="eight columns">
+			<ul class="social-icons">
+				<li><a class="facebook tooltip bottom" href="https://www.facebook.com/officeholidays" title="Like Office Holidays on Facebook" target="_blank" rel="noopener"><i class="icon-facebook"></i></a></li>
+				<li><a class="twitter tooltip bottom" href="https://twitter.com/officeholidays" title="Follow Office Holidays on Twitter" target="_blank" rel="noopener"><i class="icon-twitter"></i></a></li>
+				<li><a class="linkedin  tooltip bottom" href="https://www.linkedin.com/company/office-holidays" title="Follow Office Holidays on LinkedIn" target="_blank" rel="noopener"><i class="icon-linkedin"></i></a></li>
+                <li><a class="youtube  tooltip bottom" href="https://www.youtube.com/channel/UCdav48fWCT1EMokkrsVfGtw" title="Subscribe to Office Holidays channel on YouTube" target="_blank" rel="noopener"><i class="icon-youtube"></i></a></li>
+				<li><a class="pinterest tooltip bottom" href="https://uk.pinterest.com/officeholidays/" title="Follow Office Holidays on Pinterest" target="_blank" rel="noopener"><i class="icon-pinterest"></i></a></li>
+                <li><a class="rss tooltip bottom" href="https://www.officeholidays.com/rss/all_holidays" title="RSS feed of upcoming holidays" target="_blank"><i class="icon-rss"></i></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+<!-- Header
+	================================================== -->
+	<div class="container" id="header">
+		<!-- Logo -->
+		<div class="eight columns">
+			<div id="logo">
+				<a href="https://www.officeholidays.com"><img src="https://static.officeholidays.com/images/280x57c/ohv2_blue.gif" alt="Office Holidays" width="280" height="57"/></a>
+			</div>
+		</div>
+
+
+		<div class="eight columns">
+
+
+
+			<!-- Search -->
+			<nav class="top-search">
+				<form method="get" action="/search">
+					<button><i class="fa fa-search"></i></button>
+					<input type="text" class="search-text-box" name="q"/>
+				</form>
+			</nav>
+
+		</div>
+
+	</div>
+
+<!-- Navigation
+================================================== -->
+
+<div class="container" id="navigation-container">
+    <div class="sixteen columns">
+
+        <a href="#menu" class="menu-trigger"><i class="fa fa-bars" style="font-weight:900;"></i></a><a class="menu-right" style="float:right; width:220px; margin: 10px 0 0px 0;" href="https://www.officeholidays.com"><img src="https://static.officeholidays.com/images/logos/oh-logo-265.png" alt="Office Holidays logo"></a>
+
+        <nav id="navigation">
+            <ul class="menu" id="responsive">
+
+                <li><a href="https://www.officeholidays.com" class="current homepage" id="current">Home</a></li>
+                                            				                            <li class="mobile_show"><a href="https://www.officeholidays.com/login">Login</a></li>
+                                                                            <li class="dropdown">
+                    <a href="https://www.officeholidays.com/countries">Countries</a>
+                    <ul>
+                        <li><a href="https://www.officeholidays.com/countries">All Countries</a></li>
+                        <li><a href="https://www.officeholidays.com/countries/by-continent">by Region</a></li>
+                        <li><a href="https://www.officeholidays.com/national-days">National Days <i class="mini-white mini-ico-play" style="float:right"></i></a>
+                            <ul class="hide_mobile">
+                                <li><a href="https://www.officeholidays.com/upcoming/national-days">Upcoming</a></li>
+                                <li><a href="https://www.officeholidays.com/national-days">All Countries</a></li>
+                                <li><a href="https://www.officeholidays.com/national-days/independence">Independence Days</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="https://www.officeholidays.com/calendars/2024">Calendars</a>
+                    <ul>
+                         <li>
+                            <a href="https://www.officeholidays.com/calendars/2026">2026 <i class="mini-white mini-ico-play" style="float:right"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.officeholidays.com/calendars/2025">2025 <i class="mini-white mini-ico-play" style="float:right"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.officeholidays.com/calendars/2024">2024 <i class="mini-white mini-ico-play" style="float:right"></i></a>
+                            <ul class="hide_mobile">
+                                <li><a href="https://www.officeholidays.com/calendars/2024/01">January</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/02">February</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/03">March</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/04">April</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/05">May</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/06">June</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/07">July</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/08">August</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/09">September</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/10">October</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/11">November</a></li>
+                                <li><a href="https://www.officeholidays.com/calendars/2024/12">December</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://www.officeholidays.com/calendars/2023">2023 <i class="mini-white mini-ico-play" style="float:right"></i></a>
+
+                        </li>
+                        <li>
+                            <a href="https://www.officeholidays.com/calendars/2022">2022 <i class="mini-white mini-ico-play" style="float:right"></i></a>
+
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="https://www.officeholidays.com/calendars/planners">Year Planners</a>
+                    <ul>
+                        <li><a href="https://www.officeholidays.com/calendars/planners/2026">2026</a></li>
+                        <li><a href="https://www.officeholidays.com/calendars/planners/2025">2025</a></li>
+                        <li><a href="https://www.officeholidays.com/calendars/planners/2024">2024</a></li>
+
+<!--                       <li><a href="https://www.officeholidays.com/members/calendars/planners/custom/create" rel=”nofollow”>Custom Planners&nbsp;&nbsp;<i class="fas fa-lock"></i></a> </li>-->
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="https://www.officeholidays.com/upcoming/week">Upcoming</a>
+                    <ul>
+                        <li><a href="https://www.officeholidays.com/day">Today</a></li>
+                        <li><a href="https://www.officeholidays.com/upcoming/month">Next 30 Days</a></li>
+                        <li><a href="https://www.officeholidays.com/upcoming/week">Next 7 Days</a></li>
+                        <li><a href="https://www.officeholidays.com/upcoming/national-days">National Days</a></li>
+                        <li>
+                            <a href="https://www.officeholidays.com/upcoming/religious">Religious Holidays <i class="mini-white mini-ico-play" style="float:right"></i></a>
+                            <ul class="hide_mobile">
+                                <li><a href="https://www.officeholidays.com/upcoming/religious/buddhist">Buddhist</a></li>
+                                <li><a href="https://www.officeholidays.com/upcoming/religious/christian">Christian</a></li>
+                                <li><a href="https://www.officeholidays.com/upcoming/religious/hindu">Hindu</a></li>
+                                <li><a href="https://www.officeholidays.com/upcoming/religious/islamic">Islamic</a></li>
+                                <li><a href="https://www.officeholidays.com/upcoming/religious/jewish">Jewish</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="https://www.officeholidays.com/upcoming/countdown">Countdown</a></li>
+                    </ul>
+                </li>
+                           <li class="dropdown">
+                    <a href="#">More</a>
+                    <ul>
+                        <li><a href="https://blog.officeholidays.com/">Blog</a></li>
+                        <li><a href="https://www.officeholidays.com/diversity-months">Diversity Months</a></li>
+                        <li><a href="https://www.officeholidays.com/facts">Holiday Facts</a></li>
+                        <li><a href="https://www.officeholidays.com/news">Holiday News</a></li>
+                        <li><a href="https://www.officeholidays.com/holiday-information">Holiday Pay Rules</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+
+    <!-- Headerbar
+================================================== -->
+<section class="titlebar">
+<div class="container">
+	<div class="sixteen columns">
+		<h1 class="nav_h1"  itemprop="headline">National Holidays in Thailand in 2025</h1>
+            <nav id="breadcrumbs">
+	    <ul>
+	        
+	            	                <li><a href="https://www.officeholidays.com">Home</a></li>
+	            
+	        
+	            	                <li><a href="https://www.officeholidays.com/countries">Countries</a></li>
+	            
+	        
+	            	                <li class="remarks">Thailand</li>
+	            
+	        	    </ul>
+	</nav>
+
+	</div>
+</div>
+</section>
+
+    <div class="container">
+           <div class="sidebar columns u-max-full-width">
+
+        <div class="widget margin-top-0">
+<!--
+    <p class="headline">Options</p>
+    <span class="line"></span>
+    <div class="clearfix"></div>
+-->
+      <!-- Share Buttons -->
+    <select class="year" name="year">
+        <option value="">Change year</option>
+                <option value="/2026">2026</option>
+                <option value="/2025">2025</option>
+                <option value="/2024">2024</option>
+                <option value="/2023">2023</option>
+                <option value="/2022">2022</option>
+                <option value="/2021">2021</option>
+                <option value="/2020">2020</option>
+                <option value="/2019">2019</option>
+                <option value="/2018">2018</option>
+            </select>
+    <div class="clearfix"></div>
+
+        <select class="region_select" name="region">
+        <option value="">Select a Region</option>
+                <option value="/bangkok">Bangkok</option>
+                <option value="/narathiwat">Narathiwat</option>
+                <option value="/nonthaburi">Nonthaburi</option>
+                <option value="/pattani">Pattani</option>
+                <option value="/satun">Satun</option>
+                <option value="/yala">Yala</option>
+            </select>
+        <ul class="list-4">
+                                       <li><a href="https://www.officeholidays.com/guide/thailand/2025">Guide view</a></li>
+                <li><a href="https://www.officeholidays.com/calendars/planners/thailand/2025">Year Planner</a></li>
+        <li><a href="https://www.officeholidays.com/subscribe/thailand">Subscribe to Calendar</a></li>
+        </ul>
+</div>
+<script>
+$(".region_select").change(function ( event ) {
+    window.location.href = "https://www.officeholidays.com/countries/thailand"+$(this).val()+"/2025";
+});
+$(".year").change(function ( event ) {
+    window.location.href = "https://www.officeholidays.com/countries/thailand"+$(this).val();
+});
+</script>
+         <div class="widget margin-top-0">
+      <div class="clearfix"></div>
+<div id="sticker">
+     <style type="text/css">
+         .sidebar_ad { display:none; }
+         .sidebar_wide_ad { display:none; }
+          @media  screen and (min-width:768px) and (max-width:1290px) {.sidebar_ad { display:inline-block;}}
+         @media  screen and (min-width:1291px) {.sidebar_wide_ad { display:inline-block;}}
+         </style>
+<div class="sidebar_wide_ad">
+<div align="center" data-freestar-ad="__300x600" id="officeholidays_right_rail_1">
+  <script data-cfasync="false" type="text/javascript">
+    freestar.config.enabled_slots.push({ placementName: "officeholidays_right_rail_1", slotId: "officeholidays_right_rail_1" });
+  </script>
+</div>
+</div>
+
+<div class="sidebar_ad">
+<div align="center" data-freestar-ad="__300x600" id="officeholidays_right_rail_2">
+  <script data-cfasync="false" type="text/javascript">
+    freestar.config.enabled_slots.push({ placementName: "officeholidays_right_rail_2", slotId: "officeholidays_right_rail_2" });
+  </script>
+</div>
+</div>
+
+</div>
+</div>
+
+    </div>
+    <div class="twelve columns">
+
+
+    
+        <!-- Tag ID: officeholidays_leaderboard_atf -->
+<div align="center" data-freestar-ad="__336x280 __336x280" id="officeholidays_leaderboard_atf">
+  <script data-cfasync="false" type="text/javascript">
+    freestar.config.enabled_slots.push({ placementName: "officeholidays_leaderboard_atf", slotId: "officeholidays_leaderboard_atf" });
+  </script>
+</div>
+
+<!--
+    -->
+
+        <!-- Post -->
+	<article class="post single">
+<div class="static-text-container">
+		<figure>
+	        <img itemprop="image" src="https://static.officeholidays.com/images/935x475c/thailand-02.jpg" alt="Thailand 2025">
+</figure>
+	 <div class="static-text">Thailand<br />2025</div>
+        </div>
+	</article>
+	<!-- Post / End -->
+
+
+        <script>
+$(function(){
+    $(".country-listing").tipTip();
+});
+</script>
+
+        <h2 class="headline"><i class="sprite sprite-TH"></i> List of Holidays in Thailand in 2025</h2><span class="line margin-bottom-25"></span><div class="clearfix"></div>
+        <table class="country-table">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th>Holiday Name</th>
+                                                            <th class="comments">Type</th>
+                                        <th class="hide-ipadmobile">Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                            <tr class="country ">
+                    <td>Wednesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-01-01">Jan 01</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/international-new-years-day">New Year&#039;s Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile"></td>
+                </tr>
+                            <tr class="region ">
+                    <td>Wednesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-01-29">Jan 29</time></td>
+                    <td><a class="country-listing" title="Narathiwat, Pattani, Satun, Yala" href="https://www.officeholidays.com/holidays/thailand/chinese-new-year">Chinese New Year</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">Regional Holiday</td>
+                                        <td class="hide-ipadmobile">Narathiwat, Pattani, Yala and Satun only</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Wednesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-02-12">Feb 12</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/makha-bucha">Makha Bucha</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">Date varies depending on the lunar cycle</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Sunday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-04-06">Apr 06</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/chakri-day">Makha Bucha</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">Date varies depending on the lunar cycle</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Monday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-04-07">Apr 07</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/chakri-day">Chakri Day (in lieu)</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">April 6th, or following Monday if it falls on a weekend</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Sunday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-04-13">Apr 13</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/songkran-festival">Songkran</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">Thai New Year</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Monday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-04-14">Apr 14</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/songkran-festival">Songkran</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile"> </td>
+                </tr>
+                            <tr class="country ">
+                    <td>Tuesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-04-15">Apr 15</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/songkran-festival">Songkran</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile"> </td>
+                </tr>
+                            <tr class="country ">
+                    <td>Wednesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-04-16">Apr 16</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/songkran-festival">Songkran</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile"> </td>
+                </tr>
+                            <tr class="country ">
+                    <td>Thursday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-05-01">May 01</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/labour-day">Labour Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">International Workers&#039; Day</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Sunday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-05-04">May 04</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/thai-kings-coronation">Coronation Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile"></td>
+                </tr>
+                            <tr class="country ">
+                    <td>Monday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-05-05">May 05</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/thai-kings-coronation">Coronation Day (in lieu)</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile"></td>
+                </tr>
+                            <tr class="govt ">
+                    <td>Friday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-05-09">May 09</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/royal-ploughing-ceremony">Royal Ploughing Ceremony</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">Government Holiday</td>
+                                        <td class="hide-ipadmobile">Government. To be confirmed</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Sunday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-05-11">May 11</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/buddha-purnima">Visakha Bucha Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">Birth of Buddha</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Tuesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-06-03">Jun 03</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/hm-queens-birthday">H.M. Queen&#039;s Birthday</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">June 3rd, or following Monday if it falls on a weekend</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Thursday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-07-10">Jul 10</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/asahna-bucha-day">Asahna Bucha Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">Date varies depending on the lunar cycle</td>
+                </tr>
+                            <tr class="govt ">
+                    <td>Friday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-07-11">Jul 11</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/buddhist-lent">Buddhist Lent</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">Government Holiday</td>
+                                        <td class="hide-ipadmobile"></td>
+                </tr>
+                            <tr class="country ">
+                    <td>Monday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-07-28">Jul 28</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/hm-kings-birthday">H.M. King&#039;s Birthday</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">July 28 or following Monday if it falls on a weekend</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Tuesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-08-12">Aug 12</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/hm-queen-mothers-birthday">H.M. Queen Mother&#039;s Birthday</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile"></td>
+                </tr>
+                            <tr class="nap ">
+                    <td>Tuesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-08-12">Aug 12</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/mothers-day">Mother&#039;s Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">Not A Public Holiday</td>
+                                        <td class="hide-ipadmobile"></td>
+                </tr>
+                            <tr class="country ">
+                    <td>Wednesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-09-24">Sep 24</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/prince-mahidol-day">Prince Mahidol Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile"></td>
+                </tr>
+                            <tr class="country ">
+                    <td>Monday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-10-13">Oct 13</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/king-bhumibols-passing">The Passing of King Bhumibol</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">Oct 13th, or following Monday if it falls on a weekend</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Thursday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-10-23">Oct 23</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/chulalongkorn-day">Chulalongkorn Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">Oct 23rd, or following Monday if it falls on a weekend</td>
+                </tr>
+                            <tr class="nap ">
+                    <td>Friday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-12-05">Dec 05</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/fathers-day">Father&#039;s Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">Not A Public Holiday</td>
+                                        <td class="hide-ipadmobile"></td>
+                </tr>
+                            <tr class="country ">
+                    <td>Friday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-12-05">Dec 05</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/king-bhumibols-birthday">King Bhumibol&#039;s Birthday</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">Dec 5th, or following Monday if it falls on a weekend</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Wednesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-12-10">Dec 10</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/thailand-constitution-day">Thailand Constitution Day</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile">Dec 10th, or following Monday if it falls on a weekend</td>
+                </tr>
+                            <tr class="country ">
+                    <td>Wednesday</td>
+                    <td style="white-space:nowrap;"><time itemprop="startDate" datetime="2025-12-31">Dec 31</time></td>
+                    <td><a class="country-listing" title="Thailand" href="https://www.officeholidays.com/holidays/thailand/new-years-eve">New Year&#039;s Eve</a></td>
+                                                             <td style="white-space:nowrap;" class="comments">National Holiday</td>
+                                        <td class="hide-ipadmobile"></td>
+                </tr>
+                        </tbody>
+        </table>
+
+        <div class="clearfix"></div>
+
+<!-- Key -->
+    <style>
+    .acct { background-color: #617C77;}
+    .acct span a, .acct td, .acct td a {color: #FFFFFF;}
+        .reset {display:none;}
+    </style>
+<table class="country-table" >
+    <thead>
+    <tr>
+        <td>Key</td>
+            <td>
+            <button id="btn" class="legend filter country tooltip bottom" title="This is a public holiday observed in all regions of this country. Businesses and Government offices are likely to be closed and public transport may run a reduced service.">National Holiday</button> <button id="btn1" style="color:#999;" class="legend filter region tooltip bottom" >Regional Holiday</button> <button id="btn2" class="legend filter nap tooltip bottom" title="While not a public holiday, this is an event or festival of note and may involve important local customs and celebrations.">Not a Public Holiday</button> <button id="btn3" class="legend filter govt tooltip bottom" title="This is a holiday that is observed by the government and public sector only.">Government Holiday</button> <button id="btn4" class="filter reset" title="Remove any filters you have applied.">Remove filters</button></td>
+    </tr>
+    </thead>
+</table>
+
+<script>
+$(function () {
+    $("#btn").click(function() {
+		$('tr').show();
+ $('tr').not('thead tr').not('.country-past').not('.country').hide();
+        $("#btn4").removeClass( "reset" );
+    });
+	$("#btn1").click(function() {
+		$('tr').show();
+	  $('tr').not('thead tr').not('.region-past').not('.region').hide();
+        $("#btn4").removeClass( "reset" );
+    });
+	$("#btn2").click(function() {
+	   $('tr').show();
+	 $('tr').not('thead tr').not('.nap-past').not('.nap').hide();
+        $("#btn4").removeClass( "reset" );
+    });
+		 $("#btn3").click(function() {
+			 $('tr').show();
+      $('tr').not('thead tr').not('.govt-past').not('.govt').hide();
+             $("#btn4").removeClass( "reset" );
+    });
+    $("#btn4").click(function() {
+			 $('tr').show();
+         $("#btn4").addClass( "reset" );
+    });
+});
+</script>
+
+ <hr style="margin: 10px 0 10px;"/>
+    <!-- Tag ID: officeholidays_leaderboard_atf_2 -->
+<div align="center" data-freestar-ad="__336x280 __336x280" id="officeholidays_leaderboard_atf_2">
+  <script data-cfasync="false" type="text/javascript">
+    freestar.config.enabled_slots.push({ placementName: "officeholidays_leaderboard_atf", slotId: "officeholidays_leaderboard_atf_2" });
+  </script>
+</div>
+
+        <div class="clearfix"></div>
+
+        <!-- Notes -->
+                <h2 class="headline">Notes</h2><span class="line margin-bottom-25"></span><div class="clearfix"></div>
+        <ul class="list-4">
+                        <li>Where the actual date of the holiday falls on a weekend, a substitute day has been granted on the Monday as a day&#039;s holiday.</li>
+                    </ul>
+        <div class="clearfix"></div>
+        
+        
+
+    <!-- Post / End -->
+
+
+
+
+    </div>
+
+    </div>
+
+
+<div class="clearfix"></div>
+
+<div class="margin-top-25"></div>
+
+<!-- Footer
+================================================== -->
+<div id="footer">
+
+	<!-- Container -->
+	<div class="container">
+
+		<div class="four columns">
+			<img src="https://static.officeholidays.com/images/logos/logo-footer.png" alt="Office Holidays" class="margin-top-10" width="136" height="46"/>
+			<p class="margin-top-15">Office Holidays provides calendars with dates and information on public holidays and bank holidays in key countries around the world.</p>
+            <ul class="footer-links">
+				<li><a href="https://www.officeholidays.com/about">About Us</a></li>
+
+			</ul>
+		</div>
+
+
+		<div class="four columns">
+
+			<!-- Headline -->
+			<h3 class="headline footer">Newsletter</h3>
+			<span class="line"></span>
+			<div class="clearfix"></div>
+			<p>Sign up to receive a weekly email update on forthcoming public holidays around the world in your inbox every Friday.</p>
+            <ul class="footer-links">
+				<li><a href="https://www.officeholidays.com/newsletter">Sign up</a></li>
+			</ul>
+
+		</div>
+
+		<div class="four columns">
+
+			<!-- Headline -->
+			<h3 class="headline footer">Useful Links</h3>
+			<span class="line"></span>
+			<div class="clearfix"></div>
+
+			<ul class="footer-links">
+
+				<li><a href="https://www.officeholidays.com/about/definitions">Holiday Definitions</a></li>
+                <li><a href="//www.thereisadayforthat.com/" target="_blank" rel="noopener">There is a Day for That!</a></li>
+                <li><a href="https://www.officeholidays.com/officetimezones">Time Zones</a></li>
+				<li><a href="https://www.officeholidays.com/about/socialmedia">Social Media</a></li>
+			</ul>
+
+		</div>
+
+		<div class="four columns">
+
+			<!-- Headline -->
+			<h3 class="headline footer">Using the site</h3>
+			<span class="line"></span>
+			<div class="clearfix"></div>
+
+			<ul class="footer-links">
+				                <li><a href="https://www.officeholidays.com/about/contact">Contact Us</a></li>
+                <li><a href="https://www.officeholidays.com/about/privacy" rel=”nofollow”>Privacy Policy</a></li>
+                <li><a href="https://www.officeholidays.com/about/terms-and-conditions" rel=”nofollow”>Terms and Conditions</a></li>
+                <li><a href="https://www.officeholidays.com/about/eurocookielaw" rel=”nofollow”>Cookie Policy</a></li>
+			</ul>
+
+		</div>
+
+
+	</div>
+	<!-- Container / End -->
+
+</div>
+<!-- Footer / End -->
+
+<!-- Footer Bottom / Start -->
+<div id="footer-bottom">
+
+	<!-- Container -->
+	<div class="container">
+
+        <div class="sixteen columns">&copy; Copyright 2024 by <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><span itemprop="name"><span style="color:#fff;">Office Holidays Ltd.</span></span></span> All rights reserved.</div>
+
+
+	</div>
+	<!-- Container / End -->
+
+</div>
+<!-- Footer Bottom / End -->
+
+<!-- Java Script
+================================================== -->
+<script defer src="/js/jquery.sticky.js"></script>
+<script defer>
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+if(!isMobile) {
+        var footerBottomAdjust = $('html').height() - $('#footer').offset().top + 260;
+  $(document).ready(function(){
+    $("#sticker").sticky({topSpacing:0,bottomSpacing: footerBottomAdjust});
+  });
+}
+    </script>
+    <script>
+   $('.lazyload').lazyload({
+  load: function(element) {},
+  trigger: "appear"
+});
+
+    function daysToText(numberOfDays) {
+    if (numberOfDays == 0) {
+        return "is today!";
+    } else if (numberOfDays == 1) {
+        return "is tomorrow";
+    } else if (numberOfDays > 1) {
+        return "is in " + numberOfDays + " days";
+    } else if (numberOfDays == -1) {
+        return "was yesterday";
+    } else {
+        return numberOfDays + "was days ago";
+    }
+}
+function createDurations() {
+    $(".date-duration").each(function(index) {
+        targetDateTime = new Date($(this).data("eventdate") + "T00:00:00");
+        localDateTime = new Date();
+        oneDay = 86400000;
+        days = Math.ceil((targetDateTime - localDateTime) / oneDay);
+        $(this).html(daysToText(days));
+    });
+}
+createDurations();
+</script>
+
+<script defer src="https://www.officeholidays.com/js/jquery.jpanelmenu.js"></script>
+<script defer src="https://www.officeholidays.com/js/jquery.themepunch.showbizpro.min.js"></script>
+<script defer src="https://www.officeholidays.com/js/jquery.themepunch.plugins.min.js"></script>
+<script defer src="https://www.officeholidays.com/js/jquery.magnific-popup.min.js"></script>
+<script defer src="https://www.officeholidays.com/js/superfish.js"></script>
+<script async src="https://www.officeholidays.com/js/jquery.pureparallax.js"></script>
+<script defer src="https://www.officeholidays.com/js/jquery.pricefilter.js"></script>
+<script defer src="https://www.officeholidays.com/js/SelectBox.js"></script>
+<script defer src="https://www.officeholidays.com/js/modernizr.custom.js"></script>
+<script defer src="https://www.officeholidays.com/js/jquery.flexslider-min.js"></script>
+<script defer src="https://www.officeholidays.com/js/jquery.tooltips.min.js"></script>
+<script defer src="https://www.officeholidays.com/js/jquery.various.min.js"></script>
+<script defer src="https://www.officeholidays.com/js/custom.js"></script>
+
+
+    </div>
+</body>
+</html>
