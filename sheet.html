@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>CP-DSDE Final Cheat Sheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap');
+
+  @page { size: A4 landscape; margin: 4mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 5.5pt;
+    line-height: 1.13;
+    color: #111;
+    columns: 4;
+    column-gap: 3.5mm;
+    padding: 3mm;
+  }
+  h1 { font-size: 9pt; text-align: center; column-span: all; margin-bottom: 1.5mm; border-bottom: 1.5px solid #000; padding-bottom: 0.5mm; }
+  h2 { font-size: 6.5pt; background: #222; color: #fff; padding: 0.5px 2px; margin: 1.5mm 0 0.5mm 0; break-inside: avoid; }
+  h3 { font-size: 5.8pt; font-weight: 700; color: #333; margin: 1mm 0 0.3mm 0; border-bottom: 0.5px solid #999; }
+  section { break-inside: avoid-column; margin-bottom: 1.2mm; }
+  code, pre {
+    font-family: 'Cordia New', 'Courier New', monospace;
+    font-size: 5.5pt;
+    background: #f3f3f3;
+    border-radius: 1px;
+  }
+  pre {
+    padding: 1px 2px;
+    margin: 0.3mm 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    border-left: 1.5px solid #888;
+  }
+  code { padding: 0 1px; }
+  table { width: 100%; border-collapse: collapse; margin: 0.3mm 0; font-size: 5.5pt; }
+  th, td { border: 0.5px solid #aaa; padding: 0.5px 1.5px; text-align: left; }
+  th { background: #ddd; font-weight: 700; }
+  .tip { background: #fffbe6; border-left: 1.5px solid #f5c518; padding: 0.5px 2px; margin: 0.3mm 0; font-size: 5.5pt; }
+  .cmt { color: #2e7d32; font-style: italic; }
+  .step { display: inline-block; background: #1565c0; color: #fff; font-size: 5pt; font-weight: 700; padding: 0 2px; border-radius: 2px; margin-right: 1px; font-family: 'Sarabun', sans-serif; }
+  ul { padding-left: 2.5mm; margin: 0.2mm 0; }
+  li { margin-bottom: 0.1mm; }
+  .page-break { break-before: page; column-span: all; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ PANDAS ═══════════════════ -->
+<h2>Pandas Basics & Data Cleaning</h2>
+
+<section>
+<h3>Read / Write</h3>
+<pre>import pandas as pd
+df = pd.read_csv('file.csv', index_col=0)
+df.to_csv('out.csv', index=False)</pre>
+</section>
+
+<section>
+<h3>Inspect</h3>
+<pre>df.shape          <span class="cmt"># (rows, cols)</span>
+df.dtypes         <span class="cmt"># column types</span>
+df.info()         <span class="cmt"># summary</span>
+df.describe()     <span class="cmt"># stats (numeric)</span>
+df.describe(include='all')  <span class="cmt"># +object</span>
+df.head(5); df.tail(3); df.sample(3)
+df.columns        <span class="cmt"># column names</span>
+df['col'].unique()      <span class="cmt"># unique values</span>
+df['col'].nunique()     <span class="cmt"># count unique</span>
+df['col'].value_counts(normalize=False, dropna=False)<span class="cmt"># count null as a value</span>
+df.select_dtypes(include='object') <span class="cmt"># can change include to "number</span>
+</pre>
+</section>
+
+<section>
+<h3>Filter / Sort</h3>
+<pre>
+df[df['col'].isin(['A','B'])]<span class="cmt"># Filter</span>
+<span class="cmt"># Sort</span>
+df.sort_values('col')
+df.sort_values('col', ascending=False)
+df.sort_values(['c1','c2'], ascending=[True,False])</pre>
+</section>
+
+<section>
+<h3>Create / Modify Columns</h3>
+<pre>df['new'] = df['a'] * df['b']
+df['new'] = df['col'].apply(lambda x: x**2)
+df.drop(columns=['col'])
+df.rename(columns={'old':'new'})</pre>
+</section>
+
+<section>
+<h3>Missing Data</h3>
+<pre>df.isnull().sum()           <span class="cmt"># count NaN per col</span>
+df.dropna()                 <span class="cmt"># drop rows with NaN</span>
+df.dropna(subset=['col'])   <span class="cmt"># drop if col is NaN</span>
+df.fillna(0)                <span class="cmt"># fill all with 0</span>
+df.fillna({'col1':'X', 'col2': df['col2'].mean()})
+df['col'].interpolate()     <span class="cmt"># linear interpolate</span></pre>
+</section>
+
+<section>
+<h3>GroupBy & Agg</h3>
+<pre>df.groupby('col')['val'].mean()
+df.groupby('col')['val'].mean().reset_index(name='avg')
+df.groupby('col').agg({'val':['min','max','mean']})
+df.groupby('col').size().reset_index(name='count')
+
+groupby_df = vdo_df.groupby(['trending_date', 'types'])['views'].sum()
+unstacks = groupby_df.unstack("types", fill_value=0)
+</pre>
+</section>
+
+<section>
+<h3>Merge / Concat</h3>
+<pre>pd.concat([df1, df2])              <span class="cmt"># stack rows</span>
+pd.concat([df1, df2], axis=1)      <span class="cmt"># stack cols</span>
+df.merge(df2, on='key', how='inner')
+<span class="cmt"># how: 'inner','left','right','outer'</span></pre>
+</section>
+
+<section>
+<h3>Pivot / Melt</h3>
+<pre>pivot = df.pivot_table(index='row', columns='col',
+    values='val', aggfunc='mean')
+melt = pd.melt(df, id_vars=['id'],
+    value_vars=['c1','c2'])</pre>
+</section>
+
+<!-- ═══════════════════ VIZ1: MAP ═══════════════════ -->
+<h2>VIZ1: Streamlit + Map (pydeck)</h2>
+
+<section>
+<h3>Streamlit Basics</h3>
+<pre>import streamlit as st
+st.set_page_config(page_title="X", layout="wide")
+<span class="cmt"># layout: "centered" | "wide"</span>
+st.title("Title"); st.header("H"); st.subheader("S")
+st.write("text"); st.text("plain")
+st.dataframe(df); st.table(df)</pre>
+</section>
+
+<section>
+<h3>Sidebar Filters</h3>
+<pre>st.sidebar.header("Filters")
+selected = st.sidebar.multiselect("Label",
+    options=df['col'].unique().tolist(),
+    default=df['col'].unique().tolist())
+val = st.sidebar.slider("Label",
+    min_value=0.001, max_value=0.005, value=0.002, step=0.001, format="%.3f" (ถ้าต่ำกว่า 3 หลักต้องใส่ format))
+choice = st.sidebar.selectbox("Label", ["A","B"])
+<span class="cmt"># Apply</span>
+filtered = df[(df['col'].isin(selected))
+    & (df['rating'] >= val)]</pre>
+</section>
+
+<section>
+<h3>pydeck Map</h3>
+<pre>import pydeck as pdk
+scatter = pdk.Layer("ScatterplotLayer" (Change to "HeatmapLayer" ได้), data=df,
+    get_position=['longitude','latitude'],
+    get_color='color',       <span class="cmt"># column name (str)</span>
+    get_radius=100, pickable=True)
+hex_layer = pdk.Layer("HexagonLayer", data=df,
+    get_position=['longitude','latitude'],
+    radius=200, elevation_scale=4, extruded=True)
+view = pdk.ViewState(latitude=13.76,
+    longitude=100.56, zoom=12, pitch=0)
+st.pydeck_chart(pdk.Deck(layers=[scatter],
+    initial_view_state=view, map_style='light',
+    tooltip={"text":"{name}\n{price} baht"}
+), height=400)</pre>
+<div class="tip">tooltip: {col_name} แทนค่า | get_color ใช้ string ชื่อ column</div>
+</section>
+
+<section>
+<h3>Color by column</h3>
+<pre>def c(p):
+    if p<=500:   return [0,200,0,180]
+    elif p<=2000:return [255,165,0,180]
+    else:        return [255,0,0,180]
+df['color']=df['price'].apply(c) #get_color='color'</pre>
+</section>
+
+<!-- ═══════════════════ VIZ2: GRAPH ═══════════════════ -->
+<h2>VIZ2: Streamlit + Graph (Plotly)</h2>
+
+<section>
+<h3>Plotly Express</h3>
+<pre>import plotly.express as px
+fig=px.bar(df,x='cnt',y='cat',orientation='h',title="T")
+fig=px.line(df, x='month', y='sales')
+fig=px.scatter(df,x='p',y='r',color='cat',size='cnt')
+fig=px.pie(df, names='cat', values='cnt')
+fig=px.histogram(df, x='price', nbins=20)
+st.plotly_chart(fig, use_container_width=True)</pre>
+</section>
+
+<section>
+<h3>st.columns + st.metric</h3>
+<pre>col1,col2,col3 = st.columns(3) # or st.columns([1,1,1])
+with col1: st.metric("Total", len(df))
+with col2: st.metric("Avg", round(df['p'].mean(),2))
+with col3:
+    top=df.loc[df['rating'].idxmax(),'name']
+    st.metric("Top", top)</pre>
+</section>
+
+<section>
+<h3>Built-in Charts & Run</h3>
+<pre>st.bar_chart(df.set_index('cat')['cnt'])
+st.line_chart(df.set_index('m')['sales'])
+st.map(df) # needs 'latitude' & 'longitude'
+<span class="cmt"># Run: streamlit run student_st.py</span></pre>
+</section>
+
+<!-- ═══════════════════ DE1: WEB SCRAPING ═══════════════════ -->
+<h2>DE1: Web Scraping (BeautifulSoup)</h2>
+
+<section>
+<h3>Setup</h3>
+<pre>from bs4 import BeautifulSoup
+with open(path,'r',encoding='utf-8') as f:
+    html = f.read()
+soup = BeautifulSoup(html, 'html.parser')</pre>
+</section>
+
+<section>
+<h3>find / find_all</h3>
+<pre>tag  = soup.find('tag')       <span class="cmt"># first</span>
+tags = soup.find_all('tag')   <span class="cmt"># all</span>
+soup.find('td', class_='comments')
+soup.find_all('a', class_='country-listing')
+soup.find('time', attrs={'datetime':'2025-04-13'})
+soup.find('a', string='Labour Day') # exact match
+soup.select('table.country-table tr') # CSS</pre>
+</section>
+
+<section>
+<h3>Navigation</h3>
+<table>
+<tr><th>Method</th><th>ทิศทาง</th><th>คืน</th></tr>
+<tr><td><code>find_parent('tr')</code></td><td>ขึ้น</td><td>1 ตัว</td></tr>
+<tr><td><code>find_parents('tr')</code></td><td>ขึ้น</td><td>list</td></tr>
+<tr><td><code>find_next_sibling('tr')</code></td><td>ถัดไป (level เดียว)</td><td>1 ตัว</td></tr>
+<tr><td><code>find_next_siblings('tr')</code></td><td>ถัดไป (level เดียว)</td><td>list</td></tr>
+<tr><td><code>find_previous_sibling('tr')</code></td><td>ก่อน (level เดียว)</td><td>1 ตัว</td></tr>
+<tr><td><code>find_next('td')</code></td><td>ถัดไป (ทุก level)</td><td>1 ตัว</td></tr>
+<tr><td><code>find_previous('time')</code></td><td>ก่อน (ทุก level)</td><td>1 ตัว</td></tr>
+</table>
+<div class="tip">sibling=ระดับเดียวกัน, next/previous=ข้ามระดับได้</div>
+</section>
+
+<section>
+<h3>Extract & Patterns</h3>
+<pre>tag.text; tag.text.strip(); tag['href']
+tag['datetime']; tag.get('title',''); tag.name
+<span class="cmt"># Loop table rows</span>
+rows = soup.find('table').find_all('tr')[1:]
+for r in rows:
+    cols = r.find_all('td')
+    day=cols[0].text; date=cols[1].find('time')['datetime']
+<span class="cmt"># find_parent pattern</span>
+a=soup.find('a',string='X'); row=a.find_parent('tr')
+nxt=row.find_next_sibling('tr')</pre>
+</section>
+<!-- ═══════════════════ DE2: SPARK ═══════════════════ -->
+<h2>DE2: Spark (PySpark DataFrame)</h2>
+
+<section>
+<h3>Setup</h3>
+<pre>from pyspark.sql import SparkSession
+from pyspark.sql.functions import (col, count,
+    countDistinct, sum, avg, max, min, round,
+    desc, month, abs as spark_abs, expr, lit)
+spark = SparkSession.builder.master('local') \
+    .appName('App').getOrCreate()
+df = spark.read.parquet(path)
+df = spark.read.csv("netflix-rotten-tomatoes-metacritic-imdb.csv", header=True, inferSchema=True)
+<span class="cmt"># เปลี่ยนชื่อ Columns</span>
+cols = [col.replace(" ", "_")  for col in df.columns]
+df = df.toDF(*cols)
+df.printSchema(); df.show(5)</pre>
+</section>
+
+<section>
+<h3>Core Operations</h3>
+<pre><span class="cmt"># Cast & new column</span>
+df=df.withColumn('Price',col('Price').cast('float'))
+df=df.withColumn('rev',col('Price')*col('Qty'))
+df=df.withColumn('m',month(col('Date').cast('date')))
+<span class="cmt"># filter/where (same)</span>
+df.filter(col('City')=='BKK')
+df.filter(col('City').isin(['BKK','CNX']))
+<span class="cmt"># groupBy + agg (ต้องคู่กันเสมอ)</span>
+df.groupBy('City').agg(
+    sum('rev').alias('total'),
+    avg('Price').alias('avg'),
+    count('*').alias('cnt'),
+    countDistinct('CID').alias('uniq')
+).orderBy(desc('total')).show()
+<span class="cmt"># orderBy: desc('col') หรือ ascending=False</span>
+<span class="cmt"># Others</span>
+df.count(); df.select('c1','c2')
+df.distinct().count(); df.limit(10)
+val=df.agg(avg('Price')).first()[0] # scalar
+
+<span class="cmt"># Aggregate ด้วย dict</span>
+group_df = df.groupBy("Director").agg({"Hidden_Gem_Score":"avg"})
+
+<span class="cmt"># ตัวอย่างการใช้ functions สามารถใช้ทำ WordCount ได้</span>
+from pyspark.sql import functions
+print(df.filter(df["Genre"].isNull()).count())
+print(df.filter(df["Genre"].isNotNull()).select("Genre").withColumn("Genres_split", functions.split(functions.col("Genre"), ", ")).withColumn("Genre_explode", functions.explode(functions.col("Genres_split"))).groupBy("Genre_explode").agg({"Genre":"count"}).count())
+</pre>
+<div class="tip">.show() คืน None ห้าม assign | .alias() ใช้กับ column ไม่ใช่ groupBy</div>
+</section>
+
+<section>
+<h3>UDF</h3>
+<pre>from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType, IntegerType
+
+<span class="cmt"># แบบ lambda (สั้น)</span>
+f = udf(lambda x: int(x[5:7]), IntegerType())
+df.withColumn('m', f(col('Date')))
+
+<span class="cmt"># แบบ function (หลายบรรทัด)</span>
+def price_tier(price):
+    if price is None:
+        return 'Unknown'
+    elif price &lt; 500:
+        return 'Cheap'
+    elif price &lt; 2000:
+        return 'Mid'
+    else:
+        return 'Expensive'
+
+tier_udf = udf(price_tier, StringType())
+df = df.withColumn('tier', tier_udf(col('Price')))</pre>
+</section>
+
+<!-- ═══════════════════ RDD ═══════════════════ -->
+<h2>DE2: Spark RDD</h2>
+
+<section>
+<h3>Create & Basic</h3>
+<pre>
+<span class="cmt"># แปลงจาก Spark DataFrame เป็น rdd ได้</span>
+rdd = df.filter(df["Age"].isNotNull()).select("Age").rdd
+
+sc = spark.sparkContext
+rdd = sc.parallelize([1,2,3,4,5])
+rdd = sc.textFile('file.txt')  <span class="cmt"># each line = element</span></pre>
+</section>
+
+<section>
+<h3>Transformations (lazy, return new RDD)</h3>
+<pre>rdd.filter(lambda x: x > 2)
+rdd.map(lambda x: x * 2)       <span class="cmt"># 1-to-1</span>
+rdd.flatMap(lambda x: x.split())# 1-to-many (flatten)
+<span class="cmt"># map vs flatMap:</span>
+<span class="cmt"># map(['a b','c d'])   → [['a','b'],['c','d']]</span>
+<span class="cmt"># flatMap(['a b','c d'])→ ['a','b','c','d']</span></pre>
+</section>
+
+<section>
+<h3>Actions (trigger computation)</h3>
+<pre>rdd.count()      <span class="cmt"># จำนวน elements</span>
+rdd.first()      <span class="cmt"># element แรก</span>
+rdd.collect()    <span class="cmt"># ดึงทั้งหมดเป็น list</span>
+rdd.take(3)      <span class="cmt"># ดึง 3 ตัวแรก</span>
+rdd.reduce(lambda a,b: a+b)  <span class="cmt"># รวมทุก element</span></pre>
+</section>
+
+<section>
+<h3>Word Count (MapReduce)</h3>
+<pre>lines = sc.textFile('file.txt')
+words = lines.flatMap(lambda l: l.split())
+counts = words.map(lambda w: (w,1)) \
+    .reduceByKey(lambda a,b: a+b)
+<span class="cmt"># reduceByKey: reduce ตาม key เดียวกัน</span></pre>
+</section>
+
+<section>
+<h3>Aggregate</h3>
+<pre>rdd.aggregate(zeroValue, seqOp, combOp)
+<span class="cmt"># (sum, count) example:</span>
+rdd.aggregate((0,0),
+    lambda z,e: (z[0]+e, z[1]+1),
+    lambda a,b: (a[0]+b[0], a[1]+b[1]))
+<span class="cmt"># → (sum_of_all, count_of_all)</span></pre>
+</section>
+
+<!-- ═══════════════════ PAGE 2 ═══════════════════ -->
+<div class="page-break"></div>
+
+<!-- ═══════════════════ DS1: PREPROCESSING ═══════════════════ -->
+<h2>DS1: Data Preprocessing for ML</h2>
+
+<section>
+<h3><span class="step">1</span> Load Data</h3>
+<pre>import pandas as pd
+X_train=pd.read_csv('X_train.csv')
+X_test=pd.read_csv('X_test.csv')
+y_train=pd.read_csv('y_train.csv').squeeze()
+y_test=pd.read_csv('y_test.csv').squeeze()
+<span class="cmt"># .squeeze() แปลง DataFrame 1 col → Series</span></pre>
+</section>
+
+<section>
+<h3><span class="step">2</span> Define Feature Lists</h3>
+<pre>num_features = ['age', 'income', 'credit_score']
+cat_features = ['city', 'gender', 'education']</pre>
+</section>
+
+<section>
+<h3><span class="step">3.1</span> Build class for pipeline</h3>
+<pre>
+from sklearn.base import BaseEstimator, TransformerMixin
+class DropWMissing(BaseEstimator, TransformerMixin):
+    def __init__(self, threshold=0.5):
+        self.threshold = threshold
+    def fit(self, X, y=None):
+        X = X.copy()
+        self.featurein_ = X.columns.tolist()
+        vals = X.isnull().sum()
+        vals = vals[vals > self.threshold*X.shape[0]]
+        self.remove_cols_ = vals.index.tolist()
+        return self
+    def transform(self, X):
+        X = X.copy()
+        X = X.drop(self.remove_cols_, axis=1)
+        return X
+    def get_feature_names_out(self):
+        return [col for col in self.featurein_ if col not in self.remove_cols_]
+</pre>
+</section>
+
+<section>
+<h3><span class="step">3</span> Build Sub-Pipelines</h3>
+<pre>from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import (
+    StandardScaler, MinMaxScaler, OneHotEncoder)
+
+<span class="cmt"># Numerical: เติม missing → scale</span>
+num_pipe = Pipeline([
+    ("dropMissing", DropWMissing(threshold=0.5)),
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler', StandardScaler())])
+<span class="cmt"># StandardScaler: mean=0, std=1
+<span class="cmt"># MinMaxScaler:   range [0,1]</span>
+<span class="cmt"># strategy: 'mean','median','most_frequent','constant'</span></span>
+
+<span class="cmt"># Categorical: เติม missing → encode</span>
+cat_pipe = Pipeline([
+    ('imputer', SimpleImputer(strategy='most_frequent')),
+    ('encoder', OneHotEncoder(handle_unknown='ignore',
+                              sparse_output=False))])
+<span class="cmt"># handle_unknown='ignore' → ค่าใหม่ใน test → 0
+<span class="cmt"># sparse_output=False → return array ไม่ใช่ sparse</span></span></pre>
+</section>
+
+<section>
+<h3><span class="step">4</span> ColumnTransformer (รวม pipeline)</h3>
+<pre>from sklearn.compose import ColumnTransformer
+
+preprocessor = ColumnTransformer([
+    ('num', num_pipe, num_features),
+    ('cat', cat_pipe, cat_features)], remainder='passthrough')
+preprocessor.set_output(transform='pandas') <span class="cmt"># ทำให้ output เป็น DataFrame และชื่อ feature จะเป็น ชื่อ pipe ย่อย + __ + featurename เช่น num__Age, cat__education_X (ถ้าไปผ่าน Onehot) </span></pre>
+</section>
+
+<section>
+<h3><span class="step">5</span> Transform Data</h3>
+<pre>X_train_t = preprocessor.fit_transform(X_train)
+X_test_t  = preprocessor.transform(X_test)
+<span class="cmt"># fit_transform = เรียนรู้+แปลง (train เท่านั้น)
+<span class="cmt"># transform = แปลงอย่างเดียว (test เท่านั้น)</span></span></pre>
+<div class="tip">fit บน train เท่านั้น ห้าม fit บน test → data leakage</div>
+</section>
+
+<section>
+<h3><span class="step">6</span> Full Pipeline (preprocessor + model)</h3>
+<pre>
+<span class="cmt"># เปลี่ยนเป็น make_pipeline โดยไม่ต้องใส่ list แต่เอา tuple transformer ต่อๆกันไม่ต้องใส่ชื่อ pipe ย่อย</span>
+full_pipe = Pipeline([
+    ('preprocessor', preprocessor),
+    ('model', RandomForestRegressor(random_state=42))])
+full_pipe.set_output(transform='pandas') <span class="cmt"># ทำให้ output เป็น DataFrame </span>
+full_pipe.fit(X_train, y_train)
+y_pred = full_pipe.predict(X_test)</pre>
+</section>
+
+<!-- ═══════════════════ DS2: PREDICTION ═══════════════════ -->
+<h2>DS2: Prediction Model</h2>
+
+<section>
+<h3><span class="step">1</span> Choose Model</h3>
+<pre><span class="cmt"># ── Regression ──</span>
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+m=RandomForestRegressor(n_estimators=200,
+    max_depth=5, random_state=42)
+
+<span class="cmt"># ── Classification ──</span>
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+m=LogisticRegression(random_state=99,max_iter=1000,
+    solver='liblinear') <span class="cmt"># supports l1 & l2</span></pre>
+</section>
+
+<section>
+<h3><span class="step">2</span> Fit & Predict</h3>
+<pre>m.fit(X_train, y_train)
+y_pred = m.predict(X_test)</pre>
+</section>
+
+<section>
+<h3><span class="step">3</span> GridSearchCV (หา hyperparameter ดีสุด)</h3>
+<pre>from sklearn.model_selection import GridSearchCV
+param_grid = {
+    'model__n_estimators': [100, 200],
+    'model__max_depth': [5, 10]}
+<span class="cmt"># param name: 'step_name__param' (double __)</span>
+grid=GridSearchCV(full_pipe, param_grid,
+    cv=3, scoring='r2', n_jobs=-1)
+grid.fit(X_train, y_train)
+grid.best_params_     <span class="cmt"># best hyperparams</span>
+grid.best_score_      <span class="cmt"># best CV score</span>
+grid.best_estimator_  <span class="cmt"># fitted best model</span>
+y_pred=grid.predict(X_test)</pre>
+</section>
+
+<section>
+<h3><span class="step">4a</span> Evaluate — Regression</h3>
+<pre>from sklearn.metrics import (r2_score,
+    mean_absolute_error, mean_squared_error)
+r2=r2_score(y_test,y_pred)
+mae=mean_absolute_error(y_test,y_pred)
+rmse=mean_squared_error(y_test,y_pred)**0.5
+ae=abs(actual-predicted)  <span class="cmt"># single value</span></pre>
+<table>
+<tr><th>Metric</th><th>ค่าดี</th><th>ใช้เมื่อ</th></tr>
+<tr><td>R2</td><td>ใกล้ 1.0</td><td>อธิบาย variance ได้กี่ %</td></tr>
+<tr><td>MAE</td><td>ยิ่งน้อยยิ่งดี</td><td>ค่าผิดพลาดเฉลี่ย</td></tr>
+<tr><td>RMSE</td><td>ยิ่งน้อยยิ่งดี</td><td>ลงโทษ error ใหญ่มากกว่า MAE</td></tr>
+</table>
+</section>
+
+<section>
+<h3><span class="step">4b</span> Evaluate — Classification</h3>
+<pre>from sklearn.metrics import (accuracy_score,
+    f1_score, precision_score, recall_score,
+    classification_report, confusion_matrix)
+acc=accuracy_score(y_test,y_pred)
+f1=f1_score(y_test,y_pred)
+<span class="cmt"># average='binary'(default),'macro','weighted'</span>
+print(classification_report(y_test,y_pred, output_dict=True))
+cm=confusion_matrix(y_test,y_pred) <span class="cmt">#[[TN,FP],[FN,TP]]</span></pre>
+<table>
+<tr><th>Metric</th><th>สูตร</th><th>ใช้เมื่อ</th></tr>
+<tr><td>Accuracy</td><td>(TP+TN)/All</td><td>class balance ดี</td></tr>
+<tr><td>Precision</td><td>TP/(TP+FP)</td><td>ห้าม false positive</td></tr>
+<tr><td>Recall</td><td>TP/(TP+FN)</td><td>ห้าม miss positive</td></tr>
+<tr><td>F1</td><td>2*P*R/(P+R)</td><td>balance P & R</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Scoring & Hyperparameters</h3>
+<table>
+<tr><th>Task</th><th>scoring=</th></tr>
+<tr><td>Regression</td><td>'r2', 'neg_mean_absolute_error', 'neg_mean_squared_error', , ถ้าใช้ทั้ง l1และ l2 เปลี่ยนใปใช้ ElasticNet ปรับ alpha กับ l1</td></tr>
+<tr><td>Classification</td><td>'accuracy', 'f1', 'f1_macro', 'precision', 'recall', 'roc_auc', 'f1_weighted'</td></tr>
+</table>
+<table>
+<tr><th>Model (Supervised)</th><th>Parameters</th></tr>
+<tr><td>RandomForest</td><td>n_estimators, max_depth, min_samples_split, random_state, parameter ต้นไม้อื่นๆ</td></tr>
+<tr><td>LogisticReg</td><td>C, penalty('l1'(lasso),'l2'(ridge)), solver, max_iter</td></tr>
+<tr><td>SVC</td><td>C, kernel('rbf','linear','poly'), gamma</td></tr>
+<tr><td>KNN</td><td>n_neighbors, weights('uniform','distance')</td></tr>
+<tr><td>Neural Network (MLP in sklearn)</td><td>learning rate, hidden units แต่ละ layer such as (5(ช้นแรก),2(ชั้นสอง)), max epochs, solver='adam'</td></tr>
+<tr><td>DecisionTree</td><td>max_depth, min_samples_split, criterion (gini (น้อยยิ่งดี), entropy(ก่อนลบหลังต่างเยอะยิ่งดี)), max_leaf_nodes, ccp_alpha(regularization)</td></tr>
+</table>
+<table>
+<tr><th>Model (Unsupervised)</th><th>Parameters</th></tr>
+<tr><td>Kmeans</td><td>k (ใช้ elbow method ได้), distanct func, maximum epochs</td></tr>
+<tr><td>DBScan</td><td>minPoints, eps, metric (เช่น euclidean)</td></tr>
+</table>
+</section>
+
+<section>
+<h3>Train/Test Split</h3>
+<pre>from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
+<span class="cmt"># stratify=y → รักษาสัดส่วน class</span></pre>
+</section>
+
+<section>
+<h3>LabelEncoder / OrdinalEncoder</h3>
+<pre>from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
+le = LabelEncoder()
+y = le.fit_transform(y)  <span class="cmt"># ['cat','dog'] → [0,1]</span>
+le.classes_              <span class="cmt"># array of labels</span>
+le.inverse_transform([0,1]) <span class="cmt"># กลับเป็น string</span>
+
+oe = OrdinalEncoder(categories=[['S','M','L','XL']])
+df[['size']] = oe.fit_transform(df[['size']])</pre>
+</section>
+
+<section>
+<h3>Save / Load Model</h3>
+<pre>import joblib
+joblib.dump(model, 'model.pkl')    <span class="cmt"># save</span>
+model = joblib.load('model.pkl')   <span class="cmt"># load</span>
+
+import pickle
+with open('m.pkl','wb') as f: pickle.dump(model,f)
+with open('m.pkl','rb') as f: model=pickle.load(f)</pre>
+</section>
+
+<section>
+<h3>Cross Validation</h3>
+<pre>from sklearn.model_selection import cross_val_score
+scores = cross_val_score(model, X, y, cv=5,
+    scoring='accuracy')
+scores.mean()  <span class="cmt"># avg score</span>
+scores.std()   <span class="cmt"># std of scores</span></pre>
+</section>
+
+<section>
+<h3>Pandas — String & Type</h3>
+<pre><span class="cmt"># String methods</span>
+df['col'].str.lower()
+df['col'].str.upper()
+df['col'].str.strip()
+df['col'].str.contains('keyword')
+df['col'].str.replace('old','new')
+df['col'].str.split(',', expand=True)
+df['col'].str.len()
+
+<span class="cmt"># Type conversion</span>
+df['col'] = df['col'].astype(int)
+df['col'] = df['col'].astype(float)
+df['col'] = df['col'].astype(str)
+df['date'] = pd.to_datetime(df['date'], format="%Y-%m-%d") <span class="cmt">format จาก ปีคศ แบบเต็ม - เดือน - วัน ถ้า y ตัวเลขจะเป็น คศแบบย่อยเช่น 25</span>
+df['date'].dt.month  <span class="cmt"># extract month</span>
+df['date'].dt.year   <span class="cmt"># extract year</span>
+df['date'].dt.day_name() # Monday, etc.</pre>
+</section>
+
+<section>
+<h3>Pandas — Duplicates & Outliers</h3>
+<pre><span class="cmt"># Duplicates</span>
+df.duplicated().sum()        <span class="cmt"># count dupes</span>
+df.drop_duplicates()         <span class="cmt"># remove</span>
+df.drop_duplicates(subset=['col'])
+
+<span class="cmt"># Outliers (IQR method)</span>
+Q1 = df['col'].quantile(0.25)
+Q3 = df['col'].quantile(0.75)
+IQR = Q3 - Q1
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+df_clean = df[(df['col']>=lower) & (df['col']<=upper)]</pre>
+</section>
+
+<section>
+<h3>Spark SQL</h3>
+<pre>df.createOrReplaceTempView('sales')
+result = spark.sql("""
+    SELECT City, SUM(Price*Qty) AS revenue
+    FROM sales
+    GROUP BY City
+    ORDER BY revenue DESC
+""")
+result.show()</pre>
+</section>
+
+<section>
+<h3>Spark Join / Union</h3>
+<pre><span class="cmt"># Join</span>
+df1.join(df2, on='key', how='inner')
+df1.join(df2, df1.id==df2.id, 'left')
+<span class="cmt"># how: 'inner','left','right','full'</span>
+
+<span class="cmt"># Union (stack rows, same schema)</span>
+df1.union(df2)
+df1.unionByName(df2) # match by column name</pre>
+</section>
+
+<section>
+<h3>Feature Importance</h3>
+<pre><span class="cmt"># After fitting RandomForest</span>
+importances = model.feature_importances_
+<span class="cmt"># Get feature names from preprocessor</span>
+names = preprocessor.get_feature_names_out()
+<span class="cmt"># Sort</span>
+feat_df = pd.DataFrame({
+    'feature': names,
+    'importance': importances
+}).sort_values('importance', ascending=False)</pre>
+</section>
+
+<section>
+<h3>Python Essentials</h3>
+<pre>
+{k:v for k,v in zip(keys, vals)}
+<span class="cmt"># Enumerate</span>
+for i, val in enumerate(lst):
+<span class="cmt"># Zip</span>
+for a, b in zip(lst1, lst2):
+<span class="cmt"># String formatting</span>
+f"value={x:.2f}"   <span class="cmt"># 2 decimal</span>
+</section>
+<section>
+<h3>CSS Selectors (soup.select)</h3>
+<pre>
+<span class="cmt"># Basic Selectors</span>
+soup.select(".intro")        <span class="cmt"># class: .class</span>
+soup.select("#firstname")    <span class="cmt"># id: #id</span>
+soup.select("p")             <span class="cmt"># element: tag</span>
+soup.select("*")             <span class="cmt"># all elements</span>
+
+<span class="cmt"># Combinations</span>
+soup.select(".n1.n2")        <span class="cmt"># both classes</span>
+soup.select(".n1 .n2")       <span class="cmt"># descendant (space)</span>
+soup.select("p.intro")       <span class="cmt"># element with class</span>
+soup.select("div, p")        <span class="cmt"># group (multiple tags)</span>
+
+<span class="cmt"># Hierarchies & Siblings</span>
+soup.select("div p")         <span class="cmt"># p inside div (any level)</span>
+soup.select("div > p")       <span class="cmt"># p is direct child of div</span>
+soup.select("div + p")       <span class="cmt"># p immediately after div</span>
+soup.select("p ~ ul")        <span class="cmt"># ul preceded by p (siblings)</span>
+
+<span class="cmt"># Attribute Selectors</span>
+soup.select("[target]")      <span class="cmt"># has attribute 'target'</span>
+soup.select("[target='_b']") <span class="cmt"># attr equals exact value</span>
+soup.select("[title~='fl']") <span class="cmt"># attr contains word 'fl'</span>
+soup.select("[lang|='en']")  <span class="cmt"># starts with 'en' or 'en-'</span>
+soup.select("a[href^='https']") <span class="cmt"># starts with 'https'</span>
+</pre>
+</section>
+
+</body>
+</html>

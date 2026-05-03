@@ -147,7 +147,3 @@ class BankLogistic:
         predicts = logist.predict(self.X_test)
         reports = classification_report(self.y_test, predicts, output_dict=True)
         return round(reports['macro avg']['f1-score'],2)
-        
-
-
-   
